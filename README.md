@@ -1,7 +1,7 @@
 # Livewire Datatables
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/mediconesystems/livewire-datatables.svg?style=flat-square)](https://packagist.org/packages/mediconesystems/livewire-datatables)
-[![Total Downloads](https://img.shields.io/packagist/dt/mediconesystems/livewire-datatables.svg?style=flat-square)](https://packagist.org/packages/mediconesystems/livewire-datatables)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/arm092/livewire-datatables.svg?style=flat-square)](https://packagist.org/packages/arm092/livewire-datatables)
+[![Total Downloads](https://img.shields.io/packagist/dt/arm092/livewire-datatables.svg?style=flat-square)](https://packagist.org/packages/arm092/livewire-datatables)
 
 ### Features
 - Use a model or query builder to supply data
@@ -20,7 +20,7 @@
 ![screenshot](resources/images/screenshot.png "Screenshot")
 
 ## Requirements
-- [Laravel 7, 8 or 9](https://laravel.com/docs/9.x)
+- [Laravel 7, 8, 9 or 10](https://laravel.com/docs/10.x)
 - [Livewire](https://laravel-livewire.com/)
 - [Tailwind](https://tailwindcss.com/)
 - [Alpine JS](https://github.com/alpinejs/alpine)
@@ -30,7 +30,7 @@
 You can install the package via composer:
 
 ```bash
-composer require mediconesystems/livewire-datatables
+composer require arm092/livewire-datatables
 ```
 If you use laravel 9 first execute
 ```bash
