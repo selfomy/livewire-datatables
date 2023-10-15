@@ -15,7 +15,7 @@ class MakeDatatableCommand extends FileManipulationCommand
     public function handle()
     {
         $this->parser = new ComponentParser(
-            config('livewire.class_namespace', 'App\\Http\\Livewire'),
+            config('livewire.class_namespace', 'App\\Livewire'),
             $this->argument('name'),
             $this->option('model')
         );

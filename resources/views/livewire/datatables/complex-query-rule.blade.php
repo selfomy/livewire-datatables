@@ -1,18 +1,14 @@
 <div class="w-full">
     @php $key = collect(explode('.', $parentIndex))->join(".content.") . ".content" @endphp
-    <div
-        draggable="true"
-        x-on:dragstart="dragstart($event, '{{ $key }}')"
-        x-on:dragend="dragend"
+    <div draggable="true" x-on:dragstart="dragstart($event, '{{ $key }}')" x-on:dragend="dragend"
         key="{{ $key }}"
-        class="px-3 py-2 -my-1 sm:flex space-x-4 items-end hover:bg-opacity-20 hover:bg-white hover:shadow-xl"
-    >
+        class="px-3 py-2 -my-1 sm:flex space-x-4 items-end hover:bg-opacity-20 hover:bg-white hover:shadow-xl">
         <div class="sm:flex flex-grow sm:space-x-4">
             <div class="sm:w-1/3">
                 <label
                     class="block uppercase tracking-wide text-xs font-bold py-1 rounded flex justify-between">Column</label>
                 <div class="relative">
-                    <select wire:model="rules.{{ $key }}.column" name="selectedColumn"
+                    <select wire:model.live="rules.{{ $key }}.column" name="selectedColumn"
                         class="w-full my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                         <option value=""></option>
                         @foreach ($columns as $i => $column)
@@ -27,7 +23,7 @@
                     <label
                         class="block uppercase tracking-wide text-xs font-bold py-1 rounded flex justify-between">Operand</label>
                     <div class="relative">
-                        <select name="operand" wire:model="rules.{{ $key }}.operand"
+                        <select name="operand" wire:model.live="rules.{{ $key }}.operand"
                             class="w-full my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             <option selected></option>
                             @foreach ($options as $operand)
@@ -45,7 +41,7 @@
                             class="block uppercase tracking-wide text-xs font-bold py-1 rounded flex justify-between">Value</label>
                         <div class="relative">
                             @if (is_array($column['filterable']))
-                                <select name="value" wire:model="rules.{{ $key }}.value"
+                                <select name="value" wire:model.live="rules.{{ $key }}.value"
                                     class="w-full my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     <option selected></option>
                                     @foreach ($column['filterable'] as $value => $label)
@@ -61,20 +57,20 @@
                                     @endforeach
                                 </select>
                             @elseif($column['type'] === 'boolean')
-                                <select name="value" wire:model="rules.{{ $key }}.value"
+                                <select name="value" wire:model.live="rules.{{ $key }}.value"
                                     class="w-full my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                     <option selected></option>
                                     <option value="true">True</option>
                                     <option value="false">False</option>
                                 </select>
                             @elseif($column['type'] === 'date')
-                                <input type="date" name="value" wire:model.lazy="rules.{{ $key }}.value"
+                                <input type="date" name="value" wire:model.blur="rules.{{ $key }}.value"
                                     class="w-full px-3 py-2 border my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                             @elseif($column['type'] === 'time')
-                                <input type="time" name="value" wire:model.lazy="rules.{{ $key }}.value"
+                                <input type="time" name="value" wire:model.blur="rules.{{ $key }}.value"
                                     class="w-full px-3 py-2 border my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                             @else
-                                <input name="value" wire:model.lazy="rules.{{ $key }}.value"
+                                <input name="value" wire:model.blur="rules.{{ $key }}.value"
                                     class="w-full px-3 py-2 border my-1 text-sm text-gray-900 leading-4 block rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                             @endif
                         </div>

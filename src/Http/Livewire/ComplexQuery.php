@@ -5,6 +5,7 @@ namespace Mediconesystems\LivewireDatatables\Http\Livewire;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ComplexQuery extends Component
@@ -22,8 +23,6 @@ class ComplexQuery extends Component
         ],
     ];
 
-    protected $listeners = ['updateSavedQueries', 'resetQuery'];
-
     public function mount($columns, $persistKey, $savedQueries = null)
     {
         $this->columns = $columns;
@@ -31,6 +30,7 @@ class ComplexQuery extends Component
         $this->savedQueries = $savedQueries;
     }
 
+    #[On('updateSavedQueries')]
     public function updateSavedQueries($savedQueries = null)
     {
         $this->mount($this->columns, $this->persistKey, $savedQueries ?? $this->savedQueries);
@@ -55,8 +55,8 @@ class ComplexQuery extends Component
     {
         return collect($rules ?? $this->rules)->map(function ($rule) {
             return $rule['type'] === 'rule'
-                    ? implode(' ', [$this->columns[$rule['content']['column']]['label'] ?? '', $rule['content']['operand'] ?? '', $rule['content']['value'] ?? ''])
-                    : '(' . $this->getRulesStringProperty($rule['content'], $rule['logic']) . ')';
+                ? implode(' ', [$this->columns[$rule['content']['column']]['label'] ?? '', $rule['content']['operand'] ?? '', $rule['content']['value'] ?? ''])
+                : '(' . $this->getRulesStringProperty($rule['content'], $rule['logic']) . ')';
         })->join(strtoupper(" $logic "));
     }
 
@@ -64,12 +64,11 @@ class ComplexQuery extends Component
     {
         $this->validateRules();
 
-        $this->emit('complexQuery', count($this->rules[0]['content']) ? $this->rules : null);
+        $this->dispatch('complexQuery', count($this->rules[0]['content']) ? $this->rules : null);
     }
 
     public function saveQuery($name)
     {
-        $this->emitUp('saveQuery', $name, $this->rules);
     }
 
     public function loadRules($rules)
@@ -80,9 +79,9 @@ class ComplexQuery extends Component
 
     public function deleteRules($id)
     {
-        $this->emitUp('deleteQuery', $id);
     }
 
+    #[On('resetQuery')]
     public function resetQuery()
     {
         $this->reset('rules');
@@ -98,11 +97,11 @@ class ComplexQuery extends Component
                 $v = Validator::make($rule['content'], ['column' => 'required']);
 
                 $v->sometimes('operand', 'required', function ($rule) {
-                    return ! ($rule['value'] === 'true' || $rule['value'] === 'false');
+                    return !($rule['value'] === 'true' || $rule['value'] === 'false');
                 });
 
                 $v->sometimes('value', 'required', function ($rule) {
-                    return ! collect([
+                    return !collect([
                         'is empty',
                         'is not empty',
                     ])->contains($rule['operand']);
@@ -212,7 +211,7 @@ class ComplexQuery extends Component
             'scope' => ['includes'],
         ];
 
-        if (! $this->getRuleColumn($key)) {
+        if (!$this->getRuleColumn($key)) {
             return [];
         }
 
