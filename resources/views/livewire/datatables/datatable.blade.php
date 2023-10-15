@@ -71,7 +71,7 @@
                 @if ($exportable)
                     <div x-data="{
                         init() {
-                            window.livewire.on('startDownload', link => window.open(link, '_blank'))
+                            window.livewire.on('startDownload', { link } => window.open(link, '_blank'))
                         }
                     }" x-init="init">
                         <button wire:click="export"
