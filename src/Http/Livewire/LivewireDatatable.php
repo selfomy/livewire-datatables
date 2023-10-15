@@ -1719,7 +1719,27 @@ class LivewireDatatable extends Component
 
     public function export(string $filename = 'DatatableExport.xlsx')
     {
-        $this->forgetComputed();
+        unset(
+            $this->massActions,
+            $this->massActionsOptions,
+            $this->activeFilters,
+            $this->complexColumns,
+            $this->persistKey,
+            $this->modelInstance,
+            $this->processedColumns,
+            $this->freshColumns,
+            $this->header,
+            $this->showHide,
+            $this->paginationControls,
+            $this->results,
+            $this->selectFilters,
+            $this->booleanFilters,
+            $this->textFilters,
+            $this->numberFilters,
+            $this->callbacks,
+            $this->exportCallbacks,
+            $this->editables,
+        );
 
         $export = new DatatableExport($this->getExportResultsSet());
         $export->setFilename($filename);
@@ -1779,7 +1799,27 @@ class LivewireDatatable extends Component
             $this->visibleSelected = $this->selected;
         }
 
-        $this->forgetComputed();
+        unset(
+            $this->massActions,
+            $this->massActionsOptions,
+            $this->activeFilters,
+            $this->complexColumns,
+            $this->persistKey,
+            $this->modelInstance,
+            $this->processedColumns,
+            $this->freshColumns,
+            $this->header,
+            $this->showHide,
+            $this->paginationControls,
+            $this->results,
+            $this->selectFilters,
+            $this->booleanFilters,
+            $this->textFilters,
+            $this->numberFilters,
+            $this->callbacks,
+            $this->exportCallbacks,
+            $this->editables,
+        );
     }
 
     public function updatedSelected()
